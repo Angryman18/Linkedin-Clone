@@ -7,7 +7,7 @@ const Login = (props) => {
     <Container>
       <Nav>
         <a href="/">
-          <img src="/images/logo.svg" alt="logo" />
+          <img className="logo" src="/images/logo.svg" alt="logo" />
         </a>
         <div>
           <Join>Join now</Join>
@@ -38,11 +38,15 @@ const Nav = styled.div`
   max-width: 1128px;
   padding: 8px 16px;
   display: flex;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
   position: relative;
   margin: auto;
+
+  @media (max-width: 768px) {
+    padding: 6px 8px;
+  }
 
   & > a {
     width: 135px;
@@ -51,6 +55,13 @@ const Nav = styled.div`
 
     @media screen and (max-width: 768px) {
       padding: 0 5px;
+      width: 100px;
+    }
+  }
+
+  a img {
+    @media screen and (max-width: 768px) {
+      width: 100px;
     }
   }
 `;
@@ -65,6 +76,10 @@ const Join = styled.a`
   border-radius: 4px;
   font-weight: 600;
   cursor: pointer;
+
+  @media (max-width: 768px) {
+    padding: 5px 6px;
+  }
 
   &:hover {
     background-color: rgba(0, 0, 0, 0.08);
@@ -85,6 +100,10 @@ const Signin = styled.a`
   background-color: rgba(0, 0, 0, 0);
   transition-duration: 167ms;
   cursor: pointer;
+
+  @media (max-width: 768px) {
+    padding: 5px 12px;
+  }
 
   &:hover {
     background-color: rgba(112, 181, 249, 0.15);
