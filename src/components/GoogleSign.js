@@ -37,7 +37,7 @@ const Google = styled.button`
   }
   
   div {
-      width: 60%;
+      width: 230px;
       display: flex;
       justify-content: space-between;
       margin: auto;
