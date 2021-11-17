@@ -34,6 +34,7 @@ const Google = styled.button`
   &:hover {
     background-color: rgba(0, 0, 0, 0.06);
     box-shadow: inset 0 0 0 2px rgba(0, 0, 0, 0.7);
+    color: rgba(0,0,0,0.75);
   }
   
   div {

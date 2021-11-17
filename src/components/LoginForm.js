@@ -2,7 +2,6 @@ import styled from "styled-components";
 import { useState } from "react";
 import Signinwithgoogle from "./GoogleSign";
 
-
 const LoginForm = () => {
   const [password, setPassword] = useState("Show");
   const [passtype, setPasstype] = useState("password");
@@ -130,7 +129,7 @@ const Signin = styled.button`
 const Or = styled.p`
   position: relative;
   text-align: center;
-  color: rgba(0,0,0,0.5);
+  color: rgba(0, 0, 0, 0.5);
 
   ::before {
     position: absolute;
@@ -139,7 +138,7 @@ const Or = styled.p`
     content: " ";
     width: 45%;
     height: 1px;
-    background-color: rgba(0,0,0,0.3);
+    background-color: rgba(0, 0, 0, 0.3);
   }
   ::after {
     position: absolute;
@@ -148,6 +147,6 @@ const Or = styled.p`
     content: " ";
     width: 45%;
     height: 1px;
-    background-color: rgba(0,0,0,0.3);
+    background-color: rgba(0, 0, 0, 0.3);
   }
 `;

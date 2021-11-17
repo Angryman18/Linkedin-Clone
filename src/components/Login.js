@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import LoginForm from "./LoginForm";
 
-
 const Login = (props) => {
   return (
     <Container>
@@ -19,7 +18,7 @@ const Login = (props) => {
           <h1>Welcome to your professional community</h1>
           <LoginForm />
           <img
-          className="background"
+            className="background"
             src="https://static-exp1.licdn.com/sc/h/dxf91zhqd2z6b0bwg85ktm5s4"
             alt="background"
           />
@@ -157,11 +156,16 @@ const Hero = styled.div`
     z-index: -1;
 
     @media screen and (max-width: 768px) {
-      width: 90%;
-      top: 0;
-      left: 0;
+      width: 60%;
+      top: 60%;
+      left: 20%;
       overflow-x: hidden;
-
+    }
+    @media screen and (max-width: 480px) {
+      width: 60%;
+      top: 50%;
+      left: 18%;
+      overflow-x: hidden;
     }
   }
   .forgot-password {
