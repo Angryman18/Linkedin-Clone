@@ -1,6 +1,13 @@
+import { useState } from "react";
 import styled from "styled-components";
 
 const Header = () => {
+  const [signoutMenu, setSignoutMenu] = useState(false);
+
+  const showmenuHandler = () => {
+    setSignoutMenu(!signoutMenu);
+  };
+
   return (
     <Container>
       <Content>
@@ -19,10 +26,64 @@ const Header = () => {
           <NavListWrapper>
             <NavList>
               <a>
-                <img src="images/nav-home.svg" alt="home" />
+                <img
+                  style={{ opacity: "0.6" }}
+                  src="images/nav-home.svg"
+                  alt="home"
+                />
                 <span>Home</span>
               </a>
             </NavList>
+            <NavList className="active">
+              <a>
+                <img src="images/nav-network.svg" alt="network" />
+                <span>My Network</span>
+              </a>
+            </NavList>
+            <NavList>
+              <a>
+                <img src="images/nav-jobs.svg" alt="jobs" />
+                <span>Jobs</span>
+              </a>
+            </NavList>
+            <NavList>
+              <a>
+                <img src="images/nav-messaging.svg" alt="messaging" />
+                <span>Messaging</span>
+              </a>
+            </NavList>
+            <NavList>
+              <a>
+                <img src="images/nav-notifications.svg" alt="notifications" />
+                <span>Notifications</span>
+              </a>
+            </NavList>
+            <Profile onClick={showmenuHandler}>
+              <a>
+                <Pic src="images/user.svg" alt="user" />
+                <DownComp>
+                  <span>Me</span>
+                  <img src="images/down-icon.svg" alt="downIcon" />
+                </DownComp>
+              </a>
+              {signoutMenu && (
+                <Signout>
+                  <span>Sign Out</span>
+                </Signout>
+              )}
+            </Profile>
+            <Work>
+              <a>
+                <img src="images/nav-work.svg" alt="work" />
+                <DownComp>
+                  <span>Work</span>
+                  <img src="images/down-icon.svg" alt="downIcon" />
+                </DownComp>
+              </a>
+            </Work>
+            <Text>
+              <a>Try Premium for Free</a>
+            </Text>
           </NavListWrapper>
         </Nav>
       </Content>
@@ -35,9 +96,10 @@ export default Header;
 const Container = styled.div`
   position: fixed;
   top: 0;
-  width: 100vw;
+  width: 100%;
   background-color: #fff;
-  padding: 0 24px;
+  box-sizing: border-box;
+  padding: 0 10px;
   z-index: 100;
   border-bottom: 1px solid rgba(0, 0, 0, 0.08);
 `;
@@ -61,7 +123,7 @@ const Search = styled.div`
     width: 280px;
     input {
       width: 240px;
-      padding: 0 8px 0 40px;
+      padding: 0 0 0 40px;
       background-color: #eef3f8;
       outline: none;
       border: none;
@@ -94,36 +156,103 @@ const NavListWrapper = styled.ul`
   display: flex;
   flex-wrap: nowrap;
   list-style: none;
+
+  .active {
+    a {
+      opacity: 1;
+    }
+    a span::after {
+      content: " ";
+      position: absolute;
+      left: 0;
+      bottom: -10px;
+      min-width: 80px;
+      border-bottom: 2px solid #212121;
+      color: rgba(0, 0, 0, 0.9);
+    }
+  }
 `;
 const NavList = styled.li`
   display: flex;
   align-items: center;
+  position: relative;
+
   a {
-      text-decoration: none;
-      cursor: pointer;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      background: transparent;
-      font-size: 12px;
-      font-weight: 400;
-      justify-content: center;
-      min-height: 42px;
-      min-width: 80px;
-      opacity: 0.7;
-      span {
-          color: rgba(0,0,0,0.8);
-          display: flex;
-          align-items: center;
-      }
-    
+    text-decoration: none;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: transparent;
+    font-size: 12px;
+    font-weight: 400;
+    justify-content: center;
+    min-height: 42px;
+    min-width: 80px;
+    opacity: 0.85;
+    position: relative;
+    span {
+      color: rgba(0, 0, 0, 0.8);
+    }
   }
-  &:hover, &:active {
-      a {
-          opacity: 1;
-          span {
-              color: rgba(0,0,0,0.9);
-          }
+  &:hover,
+  &:active {
+    a {
+      opacity: 2;
+      span {
+        color: rgba(0, 0, 0, 0.9);
       }
+    }
+  }
+`;
+
+const Signout = styled.div`
+  position: absolute;
+  bottom: -40px;
+  background: #fff;
+  width: 80px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  text-align: center;
+  padding: 5px 0px;
+  font-size: 14px;
+  border-radius: 5px;
+  color: rgba(0, 0, 0, 0.7);
+  transition-duration: 167ms;
+  cursor: pointer;
+`;
+
+const Profile = styled(NavList)`
+  border-right: 1px solid rgba(0, 0, 0, 0.1);
+`;
+
+const Pic = styled.img`
+  height: 26px;
+  width: 26px;
+  border-radius: 50%;
+`;
+
+const Work = styled(NavList)``;
+
+const DownComp = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  & img {
+    width: 15px;
+  }
+`;
+const Text = styled(NavList)`
+  width: 100px;
+  text-align: center;
+  opacity: 1;
+  a {
+    line-height: 1.5;
+    color: #915907;
+    opacity: 1;
+  }
+
+  a:hover {
+    text-decoration: underline;
   }
 `;
