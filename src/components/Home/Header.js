@@ -108,7 +108,7 @@ const Content = styled.div`
   align-items: center;
   max-width: 1128px;
   max-height: 100%;
-  margin: 10px auto;
+  margin: 5px auto;
 `;
 const Logo = styled.div`
   margin-right: 8px;
@@ -165,7 +165,7 @@ const NavListWrapper = styled.ul`
       content: " ";
       position: absolute;
       left: 0;
-      bottom: -10px;
+      bottom: -5px;
       min-width: 80px;
       border-bottom: 2px solid #212121;
       color: rgba(0, 0, 0, 0.9);
