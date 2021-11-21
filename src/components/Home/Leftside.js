@@ -59,9 +59,10 @@ const LeftSideContainer = styled.div`
 const Card = styled.div`
   position: relative;
   background-color: #fff;
-  border-radius: 5px;
+  border-radius: 10px;
   overflow: hidden;
-  box-shadow: 1px 1px 5px 2px rgba(0, 0, 0, 0.1);
+  /* box-shadow: 1px 1px 5px 2px rgba(0, 0, 0, 0.1); */
+  border: 2px solid rgba(0,0,0,0.1);
   margin-bottom: 10px;
 `;
 
