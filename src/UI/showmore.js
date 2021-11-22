@@ -10,7 +10,7 @@ const Button = styled.button`
   outline: none;
   border: none;
   padding: 5px 8px;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 700;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;

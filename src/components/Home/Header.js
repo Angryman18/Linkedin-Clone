@@ -24,7 +24,7 @@ const Header = () => {
         </Search>
         <Nav>
           <NavListWrapper>
-            <NavList>
+            <NavList className="active">
               <a>
                 <img
                   style={{ opacity: "0.6" }}
@@ -34,7 +34,7 @@ const Header = () => {
                 <span>Home</span>
               </a>
             </NavList>
-            <NavList className="active">
+            <NavList>
               <a>
                 <img src="images/nav-network.svg" alt="network" />
                 <span>My Network</span>

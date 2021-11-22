@@ -13,7 +13,7 @@ const RightSide = () => {
 
   return (
     <RightSideContainer>
-      <NewsSection>
+      <Card>
         <Heading>
           <span>Linkedin News</span>
           <Feed src="/images/feed-icon.svg" alt="item" />
@@ -23,7 +23,7 @@ const RightSide = () => {
           </Text>
         </Heading>
         {linkedinNews.map((item, idx) => {
-          if (!show && idx < 4) {
+          if (!show && idx < 5) {
             return (
               <News key={item.id}>
                 <a>
@@ -59,18 +59,23 @@ const RightSide = () => {
             show ? (
               <ShowButton>
                 {" "}
-                <span>Show Less</span>{" "}
+                <span>Show less</span>{" "}
                 <img src="images/show-less.svg" alt="showless" />{" "}
               </ShowButton>
             ) : (
               <ShowButton>
-                <span>Show More</span>{" "}
+                <span>Show more</span>{" "}
                 <img src="images/show-more.svg" alt="showmore" />{" "}
               </ShowButton>
             )
           }
         />
-      </NewsSection>
+      </Card>
+      <Banner>
+        <a>
+          <Ad src="images/banner.png" alt="Banner" />
+        </a>
+      </Banner>
     </RightSideContainer>
   );
 };
@@ -80,7 +85,7 @@ export default RightSide;
 const RightSideContainer = styled.div`
   grid-area: last;
 `;
-const NewsSection = styled.div`
+const Card = styled.div`
   background-color: #fff;
   border-radius: 10px;
   border: 1px solid rgba(0, 0, 0, 0.09);
@@ -99,7 +104,7 @@ const Heading = styled.div`
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
       Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   }
-  color: rgba(0, 0, 0, 0.6);
+  color: rgba(0, 0, 0, 0.8);
 `;
 const Text = styled.p`
   display: none;
@@ -127,7 +132,6 @@ const News = styled.div`
   a {
     display: flex;
     flex-direction: column;
-    color: rgba(0, 0, 0, 0.6);
     span:nth-of-type(1) {
       font-size: 14px;
       font-weight: 700;
@@ -135,10 +139,12 @@ const News = styled.div`
         Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
       display: flex;
       align-items: center;
+      color: rgba(0, 0, 0, 0.8);
     }
     span:nth-of-type(2) {
       margin-left: 25px;
       font-size: 12px;
+      color: rgba(0, 0, 0, 0.5);
     }
   }
   &:hover {
@@ -172,4 +178,18 @@ const ShowButton = styled.div`
   img {
     opacity: 0.5;
   }
+`;
+
+const Banner = styled(Card)`
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+
+  a {
+    cursor: pointer;
+  }
+`;
+const Ad = styled.img`
+  width: 300px;
+  height: 250px;
 `;

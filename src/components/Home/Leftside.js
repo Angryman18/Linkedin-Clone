@@ -93,8 +93,9 @@ const Background = styled.img`
   width: 100%;
 `;
 const Thumbnail = styled.img`
-  width: 65px;
+  width: 70px;
   border-radius: 50%;
+  border: 2px solid #fff;
 `;
 
 const UserInfo = styled.div`
