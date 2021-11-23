@@ -1,8 +1,11 @@
 import styled from "styled-components";
+import { signinAPI } from "../../actions/signinAPI";
+import { useDispatch } from "react-redux";
 
 const Signinwithgoogle = () => {
+  const dispatch = useDispatch()
   return (
-    <Google>
+    <Google onClick={() => dispatch(signinAPI())}>
       <div>
         <img className="googleicon" src="images/google.svg" alt="google" />
         Sign in With Google
@@ -14,7 +17,6 @@ const Signinwithgoogle = () => {
 export default Signinwithgoogle;
 
 const Google = styled.button`
-  
   margin-top: 15px;
   width: 100%;
   padding: 15px 0;
@@ -34,14 +36,14 @@ const Google = styled.button`
   &:hover {
     background-color: rgba(0, 0, 0, 0.06);
     box-shadow: inset 0 0 0 2px rgba(0, 0, 0, 0.7);
-    color: rgba(0,0,0,0.75);
+    color: rgba(0, 0, 0, 0.75);
   }
-  
+
   div {
-      width: 230px;
-      display: flex;
-      justify-content: space-between;
-      margin: auto;
+    width: 230px;
+    display: flex;
+    justify-content: space-between;
+    margin: auto;
   }
 
   div.googleicon {

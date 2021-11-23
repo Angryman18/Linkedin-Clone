@@ -1,7 +1,17 @@
 import styled from "styled-components";
 import LoginForm from "./LoginForm";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router";
+import React from "react";
 
 const Login = (props) => {
+  const user = useSelector((state) => state.AuthSlicer.user);
+  const navigate = useNavigate();
+  React.useEffect(() => {
+    if (user) {
+      navigate("home");
+    }
+  }, [user]);
   return (
     <Container>
       <Nav>

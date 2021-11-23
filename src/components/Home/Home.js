@@ -2,6 +2,8 @@ import styled from "styled-components";
 import LeftSide from "./Leftside";
 import Middle from "./Middle";
 import RightSide from "./RIghtside";
+import { useSelector } from "react-redux";
+import React from "react";
 
 const Home = () => {
   return (

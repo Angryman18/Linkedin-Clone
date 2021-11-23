@@ -1,7 +1,10 @@
 import { useState } from "react";
 import styled from "styled-components";
+import { useDispatch } from "react-redux";
+import { usersignOut } from "../../actions/signinAPI";
 
 const Header = () => {
+  const dispatch = useDispatch();
   const [signoutMenu, setSignoutMenu] = useState(false);
 
   const showmenuHandler = () => {
@@ -67,7 +70,7 @@ const Header = () => {
                 </DownComp>
               </a>
               {signoutMenu && (
-                <Signout>
+                <Signout onClick={() => dispatch(usersignOut())}>
                   <span>Sign Out</span>
                 </Signout>
               )}

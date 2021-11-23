@@ -1,11 +1,19 @@
+import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Login from "./components/Login/Login";
 import Home from "./components/Home/Home";
 import Header from "./components/Home/Header";
 import Notfound from "./components/Notfound/Notfound";
-import React from "react";
+import { setSigninAuthState } from "./actions/signinAPI";
+import { useDispatch } from "react-redux";
 
 function App() {
+  const dispatch = useDispatch();
+
+  React.useEffect(() => {
+    dispatch(setSigninAuthState());
+  }, []);
+
   return (
     <div>
       <Router>
