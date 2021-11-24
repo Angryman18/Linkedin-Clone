@@ -12,14 +12,14 @@ function App() {
 
   React.useEffect(() => {
     dispatch(setSigninAuthState());
-  }, []);
+  }, [dispatch]);
 
   return (
     <div>
       <Router>
         <Routes>
           <Route path="/" element={<Login />} />
-          <Route
+          {<Route
             path="home"
             element={
               <>
@@ -27,7 +27,7 @@ function App() {
                 <Home />
               </>
             }
-          />
+          />}
           <Route
             path="/*"
             element={

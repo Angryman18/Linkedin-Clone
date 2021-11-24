@@ -1,11 +1,27 @@
 import styled from "styled-components";
+import { useSelector } from "react-redux";
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+
 import LeftSide from "./Leftside";
 import Middle from "./Middle";
 import RightSide from "./RIghtside";
-import { useSelector } from "react-redux";
-import React from "react";
+import Modal from "./Modal/Modal";
+import { uiSlicerActions } from "../../store/ui-slicer";
 
 const Home = () => {
+  const navigate = useNavigate();
+  const user = useSelector((state) => state.AuthSlicer.user);
+  const postmodal = useSelector((state) => state.UiSlicer.postmodal);
+  const dispatch = useDispatch();
+
+  React.useEffect(() => {
+    if (user === null) {
+      navigate("/");
+    }
+  }, [user, navigate]);
+
   return (
     <Container>
       <Section>
@@ -22,6 +38,9 @@ const Home = () => {
         <Middle />
         <RightSide />
       </BodySection>
+      {postmodal && (
+        <Modal CloseModal={() => dispatch(uiSlicerActions.ClosePostModal())} />
+      )}
     </Container>
   );
 };

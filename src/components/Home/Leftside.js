@@ -1,19 +1,26 @@
 import styled from "styled-components";
+import { useSelector } from "react-redux";
 
 const LeftSide = () => {
+  const user = useSelector((state) => state.AuthSlicer.user);
+  if (user == null) {
+    return "Loading"
+  }
   return (
     <LeftSideContainer>
       <Card>
         <Background src="images/card-bg.svg" alt="bg" />
         <User>
           <a>
-            <Thumbnail src="images/user.svg" />
-            <h4>Shyam Mahanta</h4>
+            <Thumbnail
+              src={user ? user.photoURL : "images/user.svg"}
+              alt="user_pic"
+            />
+            <h4>{user ? user.displayName : "Welcome, there!"}</h4>
           </a>
         </User>
         <UserInfo>
-          ReactJS Developer | Redux | HTML | CSS | Bootstrap | Rest API |
-          Authentication
+          Add some bio?
         </UserInfo>
         <Border />
         <Connection>
@@ -62,7 +69,7 @@ const Card = styled.div`
   border-radius: 10px;
   overflow: hidden;
   /* box-shadow: 1px 1px 5px 2px rgba(0, 0, 0, 0.1); */
-  border: 2px solid rgba(0,0,0,0.1);
+  border: 2px solid rgba(0, 0, 0, 0.1);
   margin-bottom: 10px;
 `;
 
@@ -96,6 +103,7 @@ const Thumbnail = styled.img`
   width: 70px;
   border-radius: 50%;
   border: 2px solid #fff;
+  background-color: #fff;
 `;
 
 const UserInfo = styled.div`
@@ -203,7 +211,7 @@ const Items = styled.div`
     display: block;
     padding: 13px 10px;
     cursor: pointer;
-    color: rgba(0,0,0,0.9);
+    color: rgba(0, 0, 0, 0.9);
     span {
       font-size: 12px;
       font-weight: 700;
@@ -215,6 +223,6 @@ const Items = styled.div`
     }
   }
   a:hover {
-    background-color: rgba(0,0,0,0.08);
+    background-color: rgba(0, 0, 0, 0.08);
   }
 `;

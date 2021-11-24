@@ -4,14 +4,16 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import React from "react";
 
-const Login = (props) => {
+const Login = () => {
   const user = useSelector((state) => state.AuthSlicer.user);
   const navigate = useNavigate();
+
   React.useEffect(() => {
     if (user) {
       navigate("home");
     }
-  }, [user]);
+  }, [user, navigate]);
+
   return (
     <Container>
       <Nav>
@@ -163,13 +165,14 @@ const Hero = styled.div`
     position: absolute;
     right: -175px;
     top: 45px;
-    z-index: -1;
+    z-index: 1;
 
     @media screen and (max-width: 768px) {
       width: 60%;
       top: 60%;
       left: 20%;
       overflow-x: hidden;
+      z-index: -1;
     }
     @media screen and (max-width: 480px) {
       width: 60%;

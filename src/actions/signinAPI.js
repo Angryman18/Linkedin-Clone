@@ -4,14 +4,7 @@ import { authSlicerActions } from "../store/Slicer";
 
 export const signinAPI = () => {
   return (dispatch) => {
-    signInWithPopup(auth, googleLogin)
-      .then((result) => {
-        console.log(result.user);
-        // dispatch(authSlicerActions.Login(result.user));
-      })
-      .catch((error) => {
-        alert(error.message);
-      });
+    signInWithPopup(auth, googleLogin);
   };
 };
 
@@ -26,8 +19,8 @@ export const setSigninAuthState = () => {
 export const usersignOut = () => {
   return (dispatch) => {
     signOut(auth)
-      .then((res) => {
-        console.log("Signed out successfully");
+      .then(() => {
+        dispatch(authSlicerActions.Logout());
       })
       .catch((error) => {
         console.log(error);

@@ -1,12 +1,19 @@
 import styled from "styled-components";
+import { useDispatch } from "react-redux";
+import { uiSlicerActions } from "../../store/ui-slicer";
+import { useSelector } from "react-redux";
 
 const Middle = () => {
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.AuthSlicer.user);
   return (
     <MiddleContainer>
       <ShareBox>
         <TopSection>
-          <Avatar src="images/user.svg" alt="user" />
-          <SharePost>Start a post</SharePost>
+          <Avatar src={user ? user.photoURL : "images/user.svg"} alt="user" />
+          <SharePost onClick={() => dispatch(uiSlicerActions.OpenPostModal())}>
+            Start a post
+          </SharePost>
         </TopSection>
         <BottomSection>
           <a>
@@ -33,7 +40,7 @@ const Middle = () => {
           <div>
             <img src="images/user.svg" alt="avatar" />
             <div>
-              <span>Shyam Mahanta</span>
+              <span>{user && user.displayName}</span>
               <span>Software Developer at NCG</span>
               <span>11th Nov</span>
             </div>
@@ -50,9 +57,7 @@ const Middle = () => {
             alt="bg"
           />
         </PostDetail>
-        <SocialBox>
-          
-        </SocialBox>
+        <SocialBox></SocialBox>
       </PostBox>
     </MiddleContainer>
   );

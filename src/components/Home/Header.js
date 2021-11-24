@@ -1,14 +1,22 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { usersignOut } from "../../actions/signinAPI";
 
 const Header = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const user = useSelector((state) => state.AuthSlicer.user);
   const [signoutMenu, setSignoutMenu] = useState(false);
 
   const showmenuHandler = () => {
     setSignoutMenu(!signoutMenu);
+  };
+
+  const signoutHandler = () => {
+    dispatch(usersignOut());
+    navigate("/");
   };
 
   return (
@@ -63,14 +71,17 @@ const Header = () => {
             </NavList>
             <Profile onClick={showmenuHandler}>
               <a>
-                <Pic src="images/user.svg" alt="user" />
+                <Pic
+                  src={user ? user.photoURL : "images/user.svg"}
+                  alt="user"
+                />
                 <DownComp>
                   <span>Me</span>
                   <img src="images/down-icon.svg" alt="downIcon" />
                 </DownComp>
               </a>
               {signoutMenu && (
-                <Signout onClick={() => dispatch(usersignOut())}>
+                <Signout onClick={signoutHandler}>
                   <span>Sign Out</span>
                 </Signout>
               )}
