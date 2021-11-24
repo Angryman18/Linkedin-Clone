@@ -7,13 +7,6 @@ import React from "react";
 const Login = () => {
   const user = useSelector((state) => state.AuthSlicer.user);
   const navigate = useNavigate();
-
-  React.useEffect(() => {
-    if (user) {
-      navigate("home");
-    }
-  }, [user, navigate]);
-
   return (
     <Container>
       <Nav>

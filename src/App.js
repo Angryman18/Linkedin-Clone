@@ -1,14 +1,21 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Navigate,
+} from "react-router-dom";
 import Login from "./components/Login/Login";
 import Home from "./components/Home/Home";
 import Header from "./components/Home/Header";
 import Notfound from "./components/Notfound/Notfound";
 import { setSigninAuthState } from "./actions/signinAPI";
 import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 function App() {
   const dispatch = useDispatch();
+  const user = useSelector((state) => state.AuthSlicer.user);
 
   React.useEffect(() => {
     dispatch(setSigninAuthState());
@@ -18,16 +25,18 @@ function App() {
     <div>
       <Router>
         <Routes>
-          <Route path="/" element={<Login />} />
-          {<Route
-            path="home"
-            element={
-              <>
-                <Header />
-                <Home />
-              </>
-            }
-          />}
+          <Route path="/" element={user === null ? <Login /> : <Navigate to="home" />} />
+          {
+            <Route
+              path="home"
+              element={
+                <>
+                  <Header />
+                  <Home />
+                </>
+              }
+            />
+          }
           <Route
             path="/*"
             element={

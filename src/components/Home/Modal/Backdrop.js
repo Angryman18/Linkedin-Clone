@@ -12,6 +12,6 @@ const BackdropContainer = styled.div`
   bottom: 0;
   left: 0;
   z-index: 999;
-  background-color: rgba(0, 0, 0, 0.65);
+  background-color: rgba(0,0,0,0.65);
   transition-duration: 167ms;
 `;

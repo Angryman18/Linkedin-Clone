@@ -3,7 +3,7 @@ import { googleLogin, auth } from "../firebase";
 import { authSlicerActions } from "../store/Slicer";
 
 export const signinAPI = () => {
-  return (dispatch) => {
+  return () => {
     signInWithPopup(auth, googleLogin);
   };
 };
