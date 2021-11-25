@@ -25,18 +25,19 @@ function App() {
     <div>
       <Router>
         <Routes>
-          <Route path="/" element={user === null ? <Login /> : <Navigate to="home" />} />
-          {
-            <Route
-              path="home"
-              element={
-                <>
-                  <Header />
-                  <Home />
-                </>
-              }
-            />
-          }
+          <Route
+            path="/"
+            element={user === null ? <Login /> : <Navigate to="home" />}
+          />
+          <Route
+            path="home"
+            element={
+              <>
+                <Header />
+                <Home />
+              </>
+            }
+          />
           <Route
             path="/*"
             element={

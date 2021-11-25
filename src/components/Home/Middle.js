@@ -17,11 +17,11 @@ const Middle = () => {
         </TopSection>
         <BottomSection>
           <a>
-            <img src="images/upload_photo.svg" alt="photo" />
+            <img src="images/upload_photo.svg" alt="icon" />
             <span>Photo</span>
           </a>
           <a>
-            <img src="images/upload_video.svg" alt="video" />
+            <img src="images/upload_video.svg" alt="icon" />
             <span>Video</span>
           </a>
           <a>
