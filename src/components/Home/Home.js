@@ -13,17 +13,19 @@ import { uiSlicerActions } from "../../store/ui-slicer";
 const Home = () => {
   const navigate = useNavigate();
   const user = useSelector((state) => state.AuthSlicer.user);
+  const loading = useSelector(state => state.AuthSlicer.loading)
   const postmodal = useSelector((state) => state.UiSlicer.postmodal);
   const dispatch = useDispatch();
 
   React.useEffect(() => {
-    if (user === null) {
-      navigate("/");
-    }
-  }, [user, navigate]);
+    console.log("im home useeffect running")
+  }, []);
+
+  console.log("im home running")
 
   return (
     <Container>
+      {console.log("im home rendering")}
       <Section>
         <a>
           <h5>Develop new skills - </h5>

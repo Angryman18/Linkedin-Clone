@@ -9,9 +9,13 @@ export const signinAPI = () => {
 };
 
 export const setSigninAuthState = () => {
+  console.log("this is main func")
   return (dispatch) => {
     onAuthStateChanged(auth, (user) => {
+      console.log("onAuthStateChange is Running 1st")
       dispatch(authSlicerActions.Login(user));
+      console.log("onAuthStateChange is Running 2nd")
+      // dispatch(authSlicerActions.Loading());
     });
   };
 };

@@ -1,16 +1,27 @@
 import styled from "styled-components";
 import LoginForm from "./LoginForm";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 import React from "react";
 
 const Login = () => {
   const user = useSelector((state) => state.AuthSlicer.user);
   const navigate = useNavigate();
+
+  React.useEffect(() => {
+    console.log("im login useEffect Running")
+    if (user) {
+      navigate("home");
+    }
+  }, [user, navigate]);
+
+  console.log("im login root comp")
+
   return (
     <Container>
+      {console.log("im login comp rendering")}
       <Nav>
-        <a href="/">
+        <a>
           <img className="logo" src="/images/logo.svg" alt="logo" />
         </a>
         <div>

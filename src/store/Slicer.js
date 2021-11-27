@@ -3,6 +3,7 @@ import uiSlicer from "./ui-slicer";
 
 const initialState = {
   user: null,
+  loading: true
 };
 
 const authSlicer = createSlice({
@@ -10,7 +11,9 @@ const authSlicer = createSlice({
   initialState,
   reducers: {
     Login(state, actions) {
+      console.log("Login Function is Running")
       state.user = actions.payload;
+      state.loading = false
     },
     Logout(state) {
       state.user = null;

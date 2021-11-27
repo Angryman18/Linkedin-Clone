@@ -10,20 +10,31 @@ import Home from "./components/Home/Home";
 import Header from "./components/Home/Header";
 import Notfound from "./components/Notfound/Notfound";
 import { setSigninAuthState } from "./actions/signinAPI";
-import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 function App() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.AuthSlicer.user);
+  const loading = useSelector((state) => state.AuthSlicer.loading);
 
   React.useEffect(() => {
+    console.log("im inside useEffect in App.js 1st")
     dispatch(setSigninAuthState());
+    console.log("im inside useEffect in App.js last")
   }, [dispatch]);
+
+  console.log("im root appjs")
+
+  if (user === null && loading) {
+    return false;
+  }
+
+  
 
   return (
     <div>
       <Router>
+        {console.log("im rendering appjs")}
         <Routes>
           <Route
             path="/"
@@ -32,10 +43,14 @@ function App() {
           <Route
             path="home"
             element={
-              <>
-                <Header />
-                <Home />
-              </>
+              user && !loading ? (
+                <>
+                  <Header />
+                  <Home />
+                </>
+              ) : (
+                <Navigate to="/" />
+              )
             }
           />
           <Route
