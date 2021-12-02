@@ -27,13 +27,13 @@ const LeftSide = () => {
           <a>
             <span>
               <p>Connections</p>
-              <p>48</p>
+              <p><img src="images/widget-icon.svg" /></p>
             </span>
             <p>Grow your network</p>
           </a>
           <a>
             <span>Who viewed your profile</span>
-            <span>5</span>
+            <span>0</span>
           </a>
         </Connection>
         <Border />

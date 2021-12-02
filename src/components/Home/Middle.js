@@ -72,8 +72,8 @@ const Middle = () => {
       )}
       {retriveAllPost &&
         retriveAllPost.map((item, id) => {
-          const time = new Date(item.user.date)
-          console.log(time)
+          const time = new Date(item.user.date);
+          console.log(time);
           return (
             <PostBox key={item.id}>
               <UserDetail>
@@ -99,7 +99,24 @@ const Middle = () => {
                   </video>
                 )}
               </PostDetail>
-              <SocialBox></SocialBox>
+              <SocialBox>
+                <li>
+                  <img src="images/Like.svg" alt="like" />
+                  Like
+                </li>
+                <li>
+                  <img src="images/Comment.svg" alt="comment" />
+                  Comment
+                </li>
+                <li>
+                  <img src="images/Share.svg" alt="share" />
+                  Share
+                </li>
+                <li>
+                  <img src="images/Send.svg" alt="send" />
+                  Send
+                </li>
+              </SocialBox>
             </PostBox>
           );
         })}
@@ -272,7 +289,34 @@ const PostDetail = styled.div`
     cursor: pointer;
   }
 `;
-const SocialBox = styled.div``;
+const SocialBox = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+
+  & > li {
+    list-style: none;
+    margin: 10px;
+    border-radius: 5px;
+    transition-duration: 167ms;
+    cursor: pointer;
+    flex: 1;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 0;
+    color: rgba(0,0,0,0.6);
+    font-size: 14px;
+    font-weight: 700;
+    img {
+      opacity: 0.6;
+    }
+    :hover {
+      background-color: rgba(0,0,0,0.08);
+    }
+  }
+`;
 
 const UploadBox = styled.div`
   box-sizing: border-box;
