@@ -1,11 +1,27 @@
+import React from "react";
 import styled from "styled-components";
-import { useDispatch } from "react-redux";
 import { uiSlicerActions } from "../../store/ui-slicer";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import LoadingSpinner from "../../UI/loading-spinner";
+import { getPosts } from "../../actions/signinAPI";
 
 const Middle = () => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.AuthSlicer.user);
+  const PostLoading = useSelector((state) => state.PostSlicer.loading);
+  const PostContainsFile = useSelector((state) => state.PostSlicer.file);
+  const retriveAllPost = useSelector((state) => state.PostSlicer.post);
+  const UploadingProgress = useSelector((state) => state.PostSlicer.uploaded);
+
+  React.useEffect(() => {
+    // let reload = true;
+    // if (reload) {
+    //   dispatch(getPosts());
+    // }
+    // return () => (reload = false);
+    dispatch(getPosts());
+  }, [dispatch]);
+
   return (
     <MiddleContainer>
       <ShareBox>
@@ -16,25 +32,78 @@ const Middle = () => {
           </SharePost>
         </TopSection>
         <BottomSection>
-          <a>
+          <p onClick={() => dispatch(uiSlicerActions.OpenPostModal())}>
             <img src="images/upload_photo.svg" alt="icon" />
             <span>Photo</span>
-          </a>
-          <a>
+          </p>
+          <p onClick={() => dispatch(uiSlicerActions.OpenPostModal())}>
             <img src="images/upload_video.svg" alt="icon" />
             <span>Video</span>
-          </a>
-          <a>
+          </p>
+          <p>
             <img src="images/upload_events.svg" alt="event" />
             <span>Event</span>
-          </a>
-          <a>
+          </p>
+          <p>
             <img src="images/upload_article.svg" alt="article" />
             <span>Write article</span>
-          </a>
+          </p>
         </BottomSection>
       </ShareBox>
-      <PostBox>
+      {PostLoading && (
+        <UploadBox>
+          {!PostContainsFile && (
+            <Spinner>
+              <LoadingSpinner />
+            </Spinner>
+          )}
+          {PostContainsFile && (
+            <ProgressBar
+              upload={+UploadingProgress}
+              style={{ width: `${UploadingProgress}%` }}
+            >
+              <p>
+                {+UploadingProgress < 100 ? "Uploading..." : "Uploaded -"}{" "}
+                <strong>{`${+UploadingProgress.toFixed(0)}%`}</strong>
+              </p>
+            </ProgressBar>
+          )}
+        </UploadBox>
+      )}
+      {retriveAllPost &&
+        retriveAllPost.map((item, id) => {
+          const time = new Date(item.user.date)
+          console.log(time)
+          return (
+            <PostBox key={item.id}>
+              <UserDetail>
+                <img src="images/3dots.svg" alt="menu_icon" />
+                <div>
+                  <img src={item.user.avatar} alt="avatar" />
+                  <div>
+                    <span>{item.user.name}</span>
+                    <span>{item.user.email}</span>
+                    {console.table(item.user.date)}
+                    <span>{`${item.user.date.toString()}`}</span>
+                  </div>
+                </div>
+              </UserDetail>
+              <PostDetail>
+                <Desc>{item.description}</Desc>
+                {item.file && item.fileType === "image" && (
+                  <img src={item.file} alt="bg" />
+                )}
+                {item.file && item.fileType === "video" && (
+                  <video preload="metadata" width="100%" controls>
+                    <source src={`${item.file}`}></source>
+                  </video>
+                )}
+              </PostDetail>
+              <SocialBox></SocialBox>
+            </PostBox>
+          );
+        })}
+      {/* <PostBox>
         <UserDetail>
           <img src="images/3dots.svg" alt="menu_icon" />
           <div>
@@ -58,7 +127,7 @@ const Middle = () => {
           />
         </PostDetail>
         <SocialBox></SocialBox>
-      </PostBox>
+      </PostBox> */}
     </MiddleContainer>
   );
 };
@@ -95,10 +164,10 @@ const BottomSection = styled.div`
   align-items: center;
   flex-direction: row;
   justify-content: space-between;
-  a {
+  p {
     display: flex;
     align-items: center;
-    padding: 10px 12px;
+    padding: 10px 15px;
     border-radius: 5px;
     cursor: pointer;
     transition-duration: 167ms;
@@ -111,7 +180,7 @@ const BottomSection = styled.div`
       margin-right: 10px;
     }
   }
-  a:hover {
+  p:hover {
     background-color: rgba(0, 0, 0, 0.08);
   }
 `;
@@ -204,3 +273,31 @@ const PostDetail = styled.div`
   }
 `;
 const SocialBox = styled.div``;
+
+const UploadBox = styled.div`
+  box-sizing: border-box;
+  margin-top: 10px;
+  padding: 5px;
+`;
+const ProgressBar = styled.div`
+  height: 25px;
+  background-color: ${({ upload }) => (upload === 100 ? "#00a03e" : "#aed6f1")};
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  padding-left: 5px;
+  transition: 0.5s ease;
+  position: relative;
+  p {
+    position: fixed;
+    color: ${({ upload }) => (upload === 100 ? "#fff" : "#444444")};
+    font-size: 14px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+      Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  }
+`;
+
+const Spinner = styled.div`
+  text-align: center;
+  transition: 0.5s ease;
+`;

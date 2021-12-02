@@ -2,37 +2,199 @@ import styled from "styled-components";
 import Backdrop from "./Backdrop";
 import { createPortal } from "react-dom";
 import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { SharePost } from "../../../actions/signinAPI";
+import { v4 as uuid4 } from "uuid";
 
 const ModalDisplay = ({ closeModal }) => {
-  const [postdetail, setPostDetail] = useState("");
+  const dispatch = useDispatch();
+
+  // const [postdetail, setPostDetail] = useState("");
+  const user = useSelector((state) => state.AuthSlicer.user);
+
+  // const [image, setImage] = useState("");
+  // const [imageName, setImageName] = useState("");
+
+  // const [media, setMedia] = useState("");
+  // const [mediaName, setMediaName] = useState("");
+
+  // const [mediaType, setMediaType] = useState("");
+
+  const [state, setState] = useState({
+    image: {
+      image: "",
+      imageName: "",
+    },
+    video: {
+      video: "",
+      videoName: "",
+    },
+    mediaType: null,
+    postdetail: "",
+  });
+
+  const handleInput = (e) => {
+    e.target.style.height = "32px";
+    let height = e.target.style.height;
+    if (height !== "" || height.length > 0 || height !== null) {
+      e.target.style.height = `${e.target.scrollHeight}px`;
+    }
+  };
+
+  const resetPostModal = () => {
+    // setImage("");
+    // setImageName("");
+    // setMedia("");
+    // setMediaName("");
+    // setMediaType("");
+    // setPostDetail("");
+    setState(state);
+    closeModal();
+  };
+
+  const imageHandler = (e) => {
+    const image = e.target.files[0];
+    if (
+      image === "" ||
+      image === undefined ||
+      !image.type.startsWith("image")
+    ) {
+      return;
+    }
+    setState((pre) => {
+      return {
+        ...pre,
+        image: {
+          imageName: `${uuid4()}_${image.name}`,
+          image: image,
+          video: {},
+        },
+        mediaType: "image",
+      };
+    });
+    // setImage(image);
+    // setImageName(`${uuid4()}_${image.name}`);
+    // setMediaType("image");
+  };
+
+  const mediaHandler = (e) => {
+    const mediaFile = e.target.files[0];
+    if (
+      mediaFile === "" ||
+      mediaFile === undefined ||
+      !mediaFile.type.startsWith("video")
+    ) {
+      return;
+    }
+    setState((pre) => {
+      return {
+        ...pre,
+        video: {
+          videoName: `${uuid4()}_${mediaFile.name}`,
+          video: mediaFile,
+          image: {},
+        },
+        mediaType: "video",
+      };
+    });
+    // setMedia(mediaFile);
+    // setMediaName(mediaFile.name);
+    // setMediaType("video");
+  };
+
+  const submitHandler = (e) => {
+    e.preventDefault();
+    const { image, video, mediaType, postdetail } = state;
+    if (state.postdetail.trim().length > 0) {
+      const payload = {
+        fileType: mediaType,
+        fileName:
+          mediaType === "image"
+            ? image.imageName
+            : mediaType === "video" && video.videoName,
+        file:
+          mediaType === "image"
+            ? image.image
+            : mediaType === "video" && video.video,
+        name: user.displayName,
+        avatar: user.photoURL,
+        email: user.email,
+        comments: 0,
+        description: postdetail,
+      };
+      dispatch(SharePost(payload));
+      resetPostModal();
+    } else {
+      return;
+    }
+  };
+
   return (
     <ModalDisplayContainer>
       <Header>
         <h4>Create a post</h4>
         <img onClick={closeModal} src="images/close.svg" alt="close" />
       </Header>
-      <User>
-        <img src="images/user.svg" alt="user" />
-        <Name>Name</Name>
-      </User>
-      <Editor>
-        <textarea
-          onChange={(e) => setPostDetail(e.target.value)}
-          placeholder="What do you want to talk about?"
-          autoFocus={true}
-        ></textarea>
-      </Editor>
+      <ContextArea>
+        <User>
+          <img src={user ? user.photoURL : "images/user.svg"} alt="user" />
+          <Name>{user && user.displayName}</Name>
+        </User>
+        <Editor>
+          <textarea
+            onInput={handleInput}
+            onChange={(e) =>
+              setState((pre) => {
+                return { ...pre, postdetail: e.target.value };
+              })
+            }
+            placeholder="What do you want to talk about?"
+            autoFocus={true}
+          />
+          <input
+            type="file"
+            id="file"
+            accept=".jpg,.png,.jpeg"
+            style={{ display: "none" }}
+            onChange={imageHandler}
+          />
+          <input
+            type="file"
+            id="media"
+            accept=".mp4, .avi, .mkv"
+            onChange={mediaHandler}
+            style={{ display: "none" }}
+          />
+          {state?.image?.image && (
+            <img src={URL.createObjectURL(state.image.image)} alt="preview" />
+          )}
+          {state?.video?.video && (
+            <video width="100%" controls>
+              <source src={URL.createObjectURL(state.video.video)}></source>
+            </video>
+          )}
+        </Editor>
+      </ContextArea>
       <Media>
         <Icons>
-          <img src="images/photo-icon.svg" alt="icon" />
-          <img src="images/video-icon.svg" alt="icon" />
+          <label htmlFor="file">
+            <img src="images/photo-icon.svg" alt="icon" />
+          </label>
+          <label htmlFor="media">
+            <img src="images/video-icon.svg" alt="icon" />
+          </label>
         </Icons>
         <Buttons>
           <Comment>
             <img src="images/comment.svg" alt="anyone" />
             <p>Anyone</p>
           </Comment>
-          <button disabled={postdetail.trim().length === 0}>Post</button>
+          <button
+            disabled={state.postdetail.trim().length === 0}
+            onClick={submitHandler}
+          >
+            Post
+          </button>
         </Buttons>
       </Media>
     </ModalDisplayContainer>
@@ -58,7 +220,7 @@ export default Modal;
 
 const ModalDisplayContainer = styled.div`
   width: 550px;
-  height: 350px;
+  max-height: 500px;
   background-color: #fff;
   border-radius: 10px;
   z-index: 1000;
@@ -66,6 +228,16 @@ const ModalDisplayContainer = styled.div`
   top: 10%;
   left: 50%;
   transform: translate(-50%, -10%);
+  animation: fadein 0.3s;
+`;
+
+const ContextArea = styled.div`
+  overflow-y: scroll;
+  width: 100%;
+  max-height: 390px;
+  /* &::-webkit-scrollbar {
+    display: none;
+  } */
 `;
 
 const Header = styled.div`
@@ -99,7 +271,8 @@ const Header = styled.div`
 const User = styled.div`
   display: flex;
   align-items: center;
-  padding: 15px 25px;
+  padding: 0 25px;
+  padding-top: 10px;
   border: 1px solid #fff;
 
   & > img {
@@ -116,19 +289,26 @@ const Media = styled.div`
   display: flex;
   padding: 0 25px;
   margin-top: auto;
-  position: absolute;
+  height: 50px;
   bottom: 10px;
   right: 0;
   left: 0;
 `;
 const Icons = styled.div`
   display: flex;
+  align-items: center;
 
-  & > img {
+  & > label {
     padding: 8px;
+    /* margin: 0 8px; */
+    display: flex;
+    align-items: center;
     cursor: pointer;
     border-radius: 50%;
     transition: 167ms ease;
+    img {
+      margin: auto 0;
+    }
     :hover {
       background-color: rgba(0, 0, 0, 0.08);
     }
@@ -193,7 +373,7 @@ const Editor = styled.div`
   box-sizing: border-box;
   padding: 10px 25px;
   width: 100%;
-  textarea {
+  & > textarea {
     width: 100%;
     resize: none;
     outline: none;
@@ -202,4 +382,11 @@ const Editor = styled.div`
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
       Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   }
+  & > textarea::-webkit-scrollbar {
+    display: none;
+  }
+  & > img {
+    width: 100%;
+  }
 `;
+// const UploadPreview = styled.div``;

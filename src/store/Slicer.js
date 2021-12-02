@@ -1,5 +1,6 @@
 import { createSlice, configureStore } from "@reduxjs/toolkit";
 import uiSlicer from "./ui-slicer";
+import postSlicer from "./post-slicer";
 
 const initialState = {
   user: null,
@@ -22,7 +23,7 @@ const authSlicer = createSlice({
 });
 
 export const store = configureStore({
-  reducer: { AuthSlicer: authSlicer.reducer, UiSlicer: uiSlicer.reducer },
+  reducer: { AuthSlicer: authSlicer.reducer, UiSlicer: uiSlicer.reducer, PostSlicer: postSlicer.reducer },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({ serializableCheck: false }),
 });
