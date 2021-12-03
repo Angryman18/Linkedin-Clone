@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 const LeftSide = () => {
   const user = useSelector((state) => state.AuthSlicer.user);
   if (user == null) {
-    return "Loading"
+    return "Loading";
   }
   return (
     <LeftSideContainer>
@@ -19,15 +19,15 @@ const LeftSide = () => {
             <h4>{user ? user.displayName : "Welcome, there!"}</h4>
           </a>
         </User>
-        <UserInfo>
-          Add some bio?
-        </UserInfo>
+        <UserInfo>Add some bio?</UserInfo>
         <Border />
         <Connection>
           <a>
             <span>
               <p>Connections</p>
-              <p><img src="images/widget-icon.svg" /></p>
+              <p>
+                <img src="images/widget-icon.svg" />
+              </p>
             </span>
             <p>Grow your network</p>
           </a>
@@ -54,6 +54,19 @@ const LeftSide = () => {
           </a>
         </Items>
       </Card>
+      <Card>
+        <LinkBox>
+          <Child>Group</Child>
+          <Child>
+            Events
+            <img src="images/plus-icon.svg" alt="plusicon" />
+          </Child>
+          <Child>Follow Hashtags</Child>
+        </LinkBox>
+        <Discover>
+            Discover more
+          </Discover>
+      </Card>
     </LeftSideContainer>
   );
 };
@@ -69,7 +82,7 @@ const Card = styled.div`
   border-radius: 10px;
   overflow: hidden;
   /* box-shadow: 1px 1px 5px 2px rgba(0, 0, 0, 0.1); */
-  border: 2px solid rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.09);
   margin-bottom: 10px;
 `;
 
@@ -226,3 +239,46 @@ const Items = styled.div`
     background-color: rgba(0, 0, 0, 0.08);
   }
 `;
+
+const LinkBox = styled.div`
+  margin: 15px 5px 5px 15px;
+
+`
+const Child = styled.div`
+  font-size: 12px;
+  font-weight: 700;
+  color: #0a66c2;
+  line-height: 1.8;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  :hover {
+    text-decoration: underline;
+  }
+  img {
+    padding: 8px;
+    border-radius: 50%;
+    :hover {
+      background-color: rgba(0,0,0,0.08);
+    }
+  }
+`;
+
+
+const Discover = styled.div`
+  border-top: 1px solid rgba(0,0,0,0.09);
+  line-height: 1.6;
+  color: rgba(0,0,0,0.5);
+  font-size: 14px;
+  font-weight: 700;
+  padding: 10px 15px;
+  text-align: center;
+  cursor: pointer;
+  transition-duration: 250ms;
+
+  :hover {
+    background-color: rgba(0,0,0,0.08);
+  }
+
+`

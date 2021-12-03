@@ -12,7 +12,7 @@ const authSlicer = createSlice({
   initialState,
   reducers: {
     Login(state, actions) {
-      console.log("Login Function is Running")
+      // console.log("Login Function is Running")
       state.user = actions.payload;
       state.loading = false
     },

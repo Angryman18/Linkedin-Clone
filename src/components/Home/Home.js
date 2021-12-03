@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import { useSelector } from "react-redux";
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
 import LeftSide from "./Leftside";
@@ -11,21 +10,20 @@ import Modal from "./Modal/Modal";
 import { uiSlicerActions } from "../../store/ui-slicer";
 
 const Home = () => {
-  const navigate = useNavigate();
-  const user = useSelector((state) => state.AuthSlicer.user);
-  const loading = useSelector(state => state.AuthSlicer.loading)
+  // const user = useSelector((state) => state.AuthSlicer.user);
+  // const loading = useSelector(state => state.AuthSlicer.loading)
   const postmodal = useSelector((state) => state.UiSlicer.postmodal);
   const dispatch = useDispatch();
 
   React.useEffect(() => {
-    console.log("im home useeffect running")
+    // console.log("im home useeffect running")
   }, []);
 
-  console.log("im home running")
+  // console.log("im home running")
 
   return (
     <Container>
-      {console.log("im home rendering")}
+      {/* {console.log("im home rendering")} */}
       <Section>
         <a>
           <h5>Develop new skills - </h5>

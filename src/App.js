@@ -18,12 +18,12 @@ function App() {
   const loading = useSelector((state) => state.AuthSlicer.loading);
 
   React.useEffect(() => {
-    console.log("im inside useEffect in App.js 1st")
+    // console.log("im inside useEffect in App.js 1st")
     dispatch(setSigninAuthState());
-    console.log("im inside useEffect in App.js last")
+    // console.log("im inside useEffect in App.js last")
   }, [dispatch]);
 
-  console.log("im root appjs")
+  // console.log("im root appjs")
 
   if (user === null && loading) {
     return false;
@@ -34,7 +34,7 @@ function App() {
   return (
     <div>
       <Router>
-        {console.log("im rendering appjs")}
+        {/* {console.log("im rendering appjs")} */}
         <Routes>
           <Route
             path="/"

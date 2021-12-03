@@ -81,7 +81,9 @@ const Middle = () => {
                   <div>
                     <span>{item.user.name}</span>
                     <span>{item.user.email}</span>
-                    <span>{`${item.user.date.toDate().toLocaleDateString()}`}</span>
+                    <span>{`${item.user.date
+                      .toDate()
+                      .toLocaleDateString()}`}</span>
                   </div>
                 </div>
               </UserDetail>
@@ -160,13 +162,15 @@ const DefaultBox = styled.div`
   flex-direction: column;
 `;
 
-const ShareBox = styled(DefaultBox)``;
+const ShareBox = styled(DefaultBox)`
+  border: 1px solid rgba(0, 0, 0, 0.09);
+`;
 const PostBox = styled(DefaultBox)`
   padding: 0;
   display: block;
   margin: 20px 0;
   position: relative;
-  border: 1px solid rgba(0,0,0,0.08);
+  border: 1px solid rgba(0, 0, 0, 0.09);
 `;
 const TopSection = styled.div`
   display: flex;
@@ -294,7 +298,7 @@ const SocialBox = styled.div`
   flex-direction: row;
   justify-content: space-evenly;
   align-items: center;
-  border-top: 1px solid rgba(0,0,0,0.08);
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
 
   & > li {
     list-style: none;
@@ -303,18 +307,18 @@ const SocialBox = styled.div`
     transition-duration: 167ms;
     cursor: pointer;
     flex: 1;
-    display:flex;
+    display: flex;
     align-items: center;
     justify-content: center;
     padding: 10px 0;
-    color: rgba(0,0,0,0.6);
+    color: rgba(0, 0, 0, 0.6);
     font-size: 14px;
     font-weight: 700;
     img {
       opacity: 0.6;
     }
     :hover {
-      background-color: rgba(0,0,0,0.08);
+      background-color: rgba(0, 0, 0, 0.08);
     }
   }
 `;
