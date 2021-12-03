@@ -9,7 +9,6 @@ import {
   Timestamp,
   collection,
   getFirestore,
-  getDocs,
   onSnapshot,
   orderBy,
   query,
@@ -26,13 +25,12 @@ export const signinAPI = () => {
 };
 
 export const setSigninAuthState = () => {
-  console.log("this is main func");
+  // console.log("this is main func");
   return (dispatch) => {
     onAuthStateChanged(auth, (user) => {
-      console.log("onAuthStateChange is Running 1st");
+      // console.log("onAuthStateChange is Running 1st");
       dispatch(authSlicerActions.Login(user));
-      console.log("onAuthStateChange is Running 2nd");
-      // dispatch(authSlicerActions.Loading());
+      // console.log("onAuthStateChange is Running 2nd");
     });
   };
 };
@@ -86,7 +84,7 @@ export const SharePost = (payload) => {
         const progress = (bytesTransferred / totalBytes) * 100;
         dispatch(postActions.UploadPercent(progress));
       },
-      (error) => {
+      () => {
         console.log("Error Uploading File");
         return;
       },
@@ -106,7 +104,7 @@ export const SharePost = (payload) => {
         };
         const myDb = getFirestore();
         const docRef = collection(myDb, "user");
-        const save = await addDoc(docRef, obj);
+        await addDoc(docRef, obj);
         dispatch(postActions.setLoading({ loading: false, file: false }));
       }
     );

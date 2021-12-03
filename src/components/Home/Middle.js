@@ -72,8 +72,6 @@ const Middle = () => {
       )}
       {retriveAllPost &&
         retriveAllPost.map((item, id) => {
-          const time = new Date(item.user.date);
-          console.log(time);
           return (
             <PostBox key={item.id}>
               <UserDetail>
@@ -83,8 +81,7 @@ const Middle = () => {
                   <div>
                     <span>{item.user.name}</span>
                     <span>{item.user.email}</span>
-                    {console.table(item.user.date)}
-                    <span>{`${item.user.date.toString()}`}</span>
+                    <span>{`${item.user.date.toDate().toLocaleDateString()}`}</span>
                   </div>
                 </div>
               </UserDetail>
@@ -169,6 +166,7 @@ const PostBox = styled(DefaultBox)`
   display: block;
   margin: 20px 0;
   position: relative;
+  border: 1px solid rgba(0,0,0,0.08);
 `;
 const TopSection = styled.div`
   display: flex;
@@ -263,11 +261,11 @@ const UserDetail = styled.div`
         text-decoration: underline;
       }
       span:nth-of-type(2) {
-        font-size: 12px;
+        font-size: 11px;
         color: rgba(0, 0, 0, 0.6);
       }
       span:nth-of-type(3) {
-        font-size: 12px;
+        font-size: 11.5px;
         color: rgba(0, 0, 0, 0.6);
       }
     }
@@ -275,6 +273,8 @@ const UserDetail = styled.div`
 `;
 const Desc = styled.div`
   padding: 0 10px;
+  margin-left: 5px;
+  font-weight: 400;
   padding-bottom: 10px;
   color: rgba(0, 0, 0, 0.85);
   font-size: 15px;
@@ -294,11 +294,12 @@ const SocialBox = styled.div`
   flex-direction: row;
   justify-content: space-evenly;
   align-items: center;
+  border-top: 1px solid rgba(0,0,0,0.08);
 
   & > li {
     list-style: none;
-    margin: 10px;
-    border-radius: 5px;
+    margin: 5px 10px;
+    border-radius: 3px;
     transition-duration: 167ms;
     cursor: pointer;
     flex: 1;
